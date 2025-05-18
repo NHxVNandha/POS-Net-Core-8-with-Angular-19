@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using POS.Domain.Entities.Inventory;
 using POS.Domain.Entities.MasterData;
 using POS.Domain.Entities.Transactions;
 
@@ -27,6 +28,11 @@ namespace POS.Infrastructure.Persistence
         public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+
+        //Inventory Data
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<StockAdjustment> StockAdjustments { get; set; }
+        public DbSet<StockTransfer> StockTransfers { get; set; }
 
     }
 }
