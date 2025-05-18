@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using POS.Domain.Entities.ConfigurationAndOthers;
 using POS.Domain.Entities.Inventory;
 using POS.Domain.Entities.MasterData;
+using POS.Domain.Entities.ReportsAndLogs;
 using POS.Domain.Entities.Transactions;
 
 namespace POS.Infrastructure.Persistence
@@ -17,9 +19,6 @@ namespace POS.Infrastructure.Persistence
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Tax> Taxes { get; set; }
-        public DbSet<Setting> Settings { get; set; }
-        public DbSet<Discount> Discounts { get; set; }
-        public DbSet<Promotion> Promotions { get; set; }
 
         //Transaction Data
         public DbSet<Sale> Sales { get; set; }
@@ -33,6 +32,25 @@ namespace POS.Infrastructure.Persistence
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<StockAdjustment> StockAdjustments { get; set; }
         public DbSet<StockTransfer> StockTransfers { get; set; }
+
+        //Reports and Logs
+        public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<SalesReport> SalesReports { get; set; }
+        public DbSet<PurchaseReport> PurchaseReports { get; set; }
+        public DbSet<InventoryReport> InventoryReports { get; set; }
+
+        //Configuration Data
+        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
+        public DbSet<Promotion> Promotions { get; set; }
+
+        //If Entities have no key, you can use the following method to configure them
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<InventoryReport>().HasNoKey();
+            modelBuilder.Entity<SalesReport>().HasNoKey();
+            modelBuilder.Entity<PurchaseReport>().HasNoKey();
+        }
 
     }
 }
