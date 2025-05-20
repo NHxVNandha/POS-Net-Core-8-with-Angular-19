@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace POS.Domain.Entities.Transactions
 {
-    public class PurchaseDetail
+    public class SalesDetail
     {
         [Key]
         public Guid Id { get; set; }
 
-        [Required(ErrorMessage = "ID Pembelian wajib diisi.")]
-        public Guid PurchaseId { get; set; }
+        [Required(ErrorMessage = "ID Penjualan wajib diisi.")]
+        public Guid SalesId { get; set; }
 
         [Required(ErrorMessage = "ID Produk wajib diisi.")]
         public Guid ProductId { get; set; }

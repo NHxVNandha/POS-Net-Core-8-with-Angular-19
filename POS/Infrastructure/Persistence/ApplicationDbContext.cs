@@ -21,8 +21,8 @@ namespace POS.Infrastructure.Persistence
         public DbSet<Tax> Taxes { get; set; }
 
         //Transaction Data
-        public DbSet<Sale> Sales { get; set; }
-        public DbSet<SaleDetail> SaleDetails { get; set; }
+        public DbSet<Sales> Sales { get; set; }
+        public DbSet<SalesDetail> SaleDetails { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
         public DbSet<Payment> Payments { get; set; }

@@ -8,9 +8,9 @@ namespace POS.Controllers.Transactions
     [Route("api/[controller]")]
     public class SaleController : ControllerBase
     {
-        private readonly IRepository<Sale> _saleRepository;
+        private readonly IRepository<Sales> _saleRepository;
 
-        public SaleController(IRepository<Sale> saleRepository)
+        public SaleController(IRepository<Sales> saleRepository)
         {
             _saleRepository = saleRepository;
         }
@@ -31,14 +31,14 @@ namespace POS.Controllers.Transactions
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Sale sale)
+        public async Task<IActionResult> Create(Sales sale)
         {
             await _saleRepository.AddAsync(sale);
             return CreatedAtAction(nameof(GetById), new { id = sale.Id }, sale);
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Update(Guid id, Sale sale)
+        public async Task<IActionResult> Update(Guid id, Sales sale)
         {
             if (id != sale.Id) return BadRequest();
             await _saleRepository.UpdateAsync(sale);
