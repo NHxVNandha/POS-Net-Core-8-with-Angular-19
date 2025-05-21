@@ -2,31 +2,30 @@ using Microsoft.EntityFrameworkCore;
 using POS.Infrastructure.Persistence;
 using POS.Infrastructure.Repositories.Implementations;
 using POS.Infrastructure.Repositories.Interfaces;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Tambahkan connection string di appsettings.json dan baca di sini
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-// Daftarkan DbContext dengan SQL Server
 builder.Services.AddDbContext<POSDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Tambahkan controller services
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-
-// Tambahkan Swagger/OpenAPI (opsional tapi direkomendasikan)
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularDevClient",
+        policy => policy.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
 
 var app = builder.Build();
 
-// Middleware Swagger
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -34,6 +33,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAngularDevClient");  // Aktifkan CORS
 
 app.UseAuthorization();
 
